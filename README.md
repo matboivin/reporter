@@ -18,7 +18,7 @@ Discord bot to listen to messages.
 ```sh
 COMPOSE_PROJECT_NAME=reporter
 COMPOSE_FILE=docker-compose.yml
-BOT_TOKEN=  # Token of the Telegram bot
+BOT_TOKEN=  # Token of the Discord bot
 ```
 
 3. Build the project:
