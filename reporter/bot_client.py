@@ -1,4 +1,5 @@
 """Discord bot client."""
+from sqlite3 import Connection
 
 from discord import Client, DMChannel, GroupChannel, Intents
 from discord import Message as DiscordMessage
@@ -6,6 +7,7 @@ from discord import MessageType
 from rich.pretty import pprint
 
 from .classes import Channel, Message, Server, User
+from .database import create_server
 from .logger import log_to_file, programLogger
 
 
@@ -66,7 +68,7 @@ async def process_message(
             author_id=str(discord_message.author.id),  # TODO
             channel_id=str(discord_message.channel.id),  # TODO
             server_id=discord_message.guild.owner_id,
-            edited=is_edited,
+            is_edited=int(is_edited),
         )
 
         if discord_message.attachments:
@@ -84,7 +86,7 @@ async def process_message(
         pprint(message)
 
 
-def init_bot() -> Client:
+def init_bot(connection: Connection) -> Client:
     """Initialize the Discord bot client.
 
     Returns
@@ -102,14 +104,8 @@ def init_bot() -> Client:
         """Log when bot is ready."""
         programLogger.notice(f"Bot '{client.user}' connected.")
 
-        # Display all joined servers
-        joined_servers: list[Server] = []
-
-        for guild in client.guilds:
-            joined_servers.append(Server.from_guild(guild))
-
-        pprint(joined_servers)
-        # TODO: Store in DB
+        for guild in client.guilds:  # Store all bot servers
+            create_server(connection, Server.from_guild(guild))
 
     @client.event
     async def on_message(discord_message: DiscordMessage) -> None:

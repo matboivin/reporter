@@ -1,14 +1,13 @@
 """Main."""
 from argparse import ArgumentParser, Namespace
 from os import getenv
-from sqlite3 import Connection, Cursor
-from sqlite3 import Error as SqliteError
-from sqlite3 import connect
+from sqlite3 import Connection, connect
 
 from aiohttp.client_exceptions import ClientConnectorError
 from discord import Client
 
 from .bot_client import init_bot
+from .database import create_tables
 from .logger import log_to_file, programLogger, set_logger
 
 
@@ -52,14 +51,14 @@ def entrypoint() -> None:
 
     try:
         connection: Connection = connect(args.database_path)
-        cursor: Cursor = connection.cursor()
-        # create_tables(cursor)
+        programLogger.debug(f"Connected to database '{args.database_path}'")
+        create_tables(connection)
 
-        bot: Client = init_bot()
+        bot: Client = init_bot(connection)
 
         bot.run(bot_token)  # Run until disconnect
 
-    except (ClientConnectorError, SqliteError) as err:
+    except ClientConnectorError as err:
         log_to_file(str(err))
 
     except KeyboardInterrupt:

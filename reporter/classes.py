@@ -1,6 +1,7 @@
 """Data models."""
 from dataclasses import dataclass
 
+from discord import Guild
 from discord import Message as DiscordMessage
 
 
@@ -18,7 +19,7 @@ class Server:
         The chat's creation date in ISO 8601 format.
     member_count : int, optional
         The number of users in the server.
-    owner_id : int, optional
+    owner_id : str, optional
         Owner Discord user ID.
 
     Class methods
@@ -32,7 +33,7 @@ class Server:
     name: str
     created_at: str | None = None
     member_count: int | None = None
-    owner_id: int | None = None
+    owner_id: str | None = None
 
     @classmethod
     def from_guild(cls, discord_guild: Guild):  # type: ignore
@@ -42,7 +43,7 @@ class Server:
             name=discord_guild.name,
             created_at=discord_guild.created_at.isoformat(),
             member_count=discord_guild.member_count,
-            owner_id=discord_guild.owner_id,
+            owner_id=str(discord_guild.owner_id),
         )
 
 
@@ -132,8 +133,8 @@ class Message:
         The channel Discord ID.
     server_id : str
         The server Discord ID.
-    edited : bool, default=False
-        True if the message is an edited one (default: False).
+    is_edited : int, default=0
+        1 if the message was edited (default: 0).
     attachments_url : str, optional
         Attachments CDN links.
 
@@ -145,5 +146,5 @@ class Message:
     author_id: str
     channel_id: str
     server_id: str
-    edited: bool = False
+    is_edited: int = 0
     attachments_url: str | None = None
