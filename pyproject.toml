@@ -18,7 +18,7 @@ pycodestyle = "^2.11.1"
 rich = "^13.6.0"
 
 [tool.black]
-line-length = 79
+line-length = 80
 include = '\.pyi?$'
 exclude = '''
 /(

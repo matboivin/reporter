@@ -57,8 +57,8 @@ class Channel:
         Discord channel ID.
     name : str
         The channel's name.
-    server_id : str
-        Discord guild ID.
+    server_id : int
+        Discord server ID in database.
 
     Class methods
     -------------
@@ -69,7 +69,7 @@ class Channel:
 
     discord_id: str
     name: str
-    server_id: str
+    server_id: int
 
     @classmethod
     def from_message(cls, discord_message: DiscordMessage):  # type: ignore
@@ -127,12 +127,12 @@ class Message:
         Date and time the message was sent in ISO 8601 format.
     content : str
         The content in text format.
-    author_id : str
-        The author Discord ID.
-    channel_id : str
-        The channel Discord ID.
-    server_id : str
-        The server Discord ID.
+    author_id : str, optional
+        Discord user ID in database.
+    channel_id : int, optional
+        Discord channel ID in database.
+    server_id : int, optional
+        Discord server ID in database.
     is_edited : int, default=0
         1 if the message was edited (default: 0).
     attachments_url : str, optional
@@ -143,8 +143,8 @@ class Message:
     discord_id: str
     created_at: str
     content: str
-    author_id: str
-    channel_id: str
-    server_id: str
+    author_id: int | None = None
+    channel_id: int | None = None
+    server_id: int | None = None
     is_edited: int = 0
     attachments_url: str | None = None
