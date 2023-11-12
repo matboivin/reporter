@@ -3,7 +3,7 @@ from dataclasses import astuple
 from sqlite3 import Connection, Cursor
 from sqlite3 import Error as SqliteError
 from sqlite3 import IntegrityError
-from typing import Any
+from typing import Any, Literal
 
 from rich.pretty import pretty_repr
 
@@ -85,7 +85,7 @@ def create_tables(connection: Connection) -> None:
 
 
 def fetch_by_discord_id(
-    connection: Connection, table: str, discord_id: str
+    connection: Connection, table: Literal["servers", "users"], discord_id: str
 ) -> int | None:
     """Fetch object ID by Discord unique ID.
 
@@ -109,14 +109,15 @@ def fetch_by_discord_id(
 
     try:
         result: Cursor = cursor.execute(query, (discord_id,))
-        first_result: Any = result.fetchone()
-        existing_id: int = first_result[0]
+        first_result: Any | None = result.fetchone()
+
+        if first_result:
+            return int(first_result[0])
 
     except SqliteError as err:
         programLogger.error(f"Failed fetching: {err}")
-        return None
 
-    return existing_id
+    return None
 
 
 def fetch_server_channel(
@@ -146,14 +147,15 @@ def fetch_server_channel(
         result: Cursor = cursor.execute(
             query, (channel.discord_id, channel.name, channel.server_id)
         )
-        first_result: Any = result.fetchone()
-        existing_id: int = first_result[0]
+        first_result: Any | None = result.fetchone()
+
+        if first_result:
+            return int(first_result[0])
 
     except SqliteError as err:
         programLogger.error(f"Failed fetching channel: {err}")
-        return None
 
-    return existing_id
+    return None
 
 
 def create_server(connection: Connection, server: Server) -> int | None:

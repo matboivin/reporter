@@ -26,3 +26,5 @@ BOT_TOKEN=  # Token of the Telegram bot
   ```console
   $ make up-build
   ```
+
+4. Database will be mounted in `logs` directory.

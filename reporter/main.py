@@ -29,10 +29,10 @@ def parse_args() -> Namespace:
     )
     parser.add_argument(
         "-p",
-        "--database-path",
+        "--database-name",
         type=str,
         default="discord.db",
-        help="path to SQLite database (default: 'discord.db')",
+        help="SQLite database filename (default: 'discord.db')",
     )
 
     return parser.parse_args()
@@ -50,8 +50,8 @@ def entrypoint() -> None:
         return
 
     try:
-        connection: Connection = connect(args.database_path)
-        programLogger.debug(f"Connected to database '{args.database_path}'")
+        connection: Connection = connect(f"logs/{args.database_name}")
+        programLogger.debug(f"Connected to database '{args.database_name}'")
         create_tables(connection)
 
         bot: Client = init_bot(connection)
