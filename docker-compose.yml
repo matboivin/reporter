@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  bot:
+    image: reporter
+    container_name: reporter
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: on-failure:3
+    environment:
+      BOT_TOKEN: ${BOT_TOKEN}
+    volumes:
+      - ./logs:/app/logs
+    command: ["reporter"]

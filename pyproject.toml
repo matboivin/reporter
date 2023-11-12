@@ -1,0 +1,51 @@
+[tool.poetry]
+name = "reporter"
+version = "1.0.0"
+description = "Discord bot."
+authors = []
+
+[tool.poetry.dependencies]
+python = "^3.10"
+aiohttp = "^3.8.6"
+coloredlogs = "^15.0.1"
+"discord.py" = "^2.3.2"
+python-dotenv = "^1.0.0"
+verboselogs = "^1.7"
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^3.5.0"
+pycodestyle = "^2.11.1"
+rich = "^13.6.0"
+
+[tool.black]
+line-length = 79
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+
+[tool.mypy]
+pretty = true
+show_traceback = true
+color_output = true
+strict = true
+ignore_missing_imports = true
+allow_untyped_decorators = true
+allow_subclassing_any = true
+
+[tool.poetry.scripts]
+reporter = 'reporter.main:entrypoint'
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

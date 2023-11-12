@@ -1,0 +1,4 @@
+# Docker compose file for Development
+services:
+  bot:
+    command: ["reporter", "--debug"]
