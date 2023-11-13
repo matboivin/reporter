@@ -106,7 +106,7 @@ def init_bot(connection: Connection) -> Client:
 
     """
     intents: Intents = Intents.default()
-    intents.message_content = True  # Defaut perm
+    intents.message_content = True
     client: Client = Client(intents=intents)
 
     @client.event

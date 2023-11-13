@@ -1,6 +1,6 @@
-# Discord bot
+# Reporter
 
-Discord bot to listen to messages.
+Store every message of servers joined by a bot.
 
 ## Prerequisites
 

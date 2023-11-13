@@ -1,4 +1,4 @@
-"""Main."""
+"""Program's entrypoint."""
 from argparse import ArgumentParser, Namespace
 from os import getenv
 from sqlite3 import Connection, connect
@@ -46,7 +46,7 @@ def entrypoint() -> None:
     set_logger(args.debug)
 
     if not bot_token:
-        programLogger.error("Missing environment variables BOT_TOKEN.")
+        programLogger.error("Missing environment variable: BOT_TOKEN.")
         return
 
     try:
@@ -56,7 +56,7 @@ def entrypoint() -> None:
 
         bot: Client = init_bot(connection)
 
-        bot.run(bot_token)  # Run until disconnect
+        bot.run(bot_token)
 
     except ClientConnectorError as err:
         log_to_file(str(err))
