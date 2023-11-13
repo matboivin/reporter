@@ -28,3 +28,11 @@ BOT_TOKEN=  # Token of the Discord bot
   ```
 
 4. Database will be mounted in `logs` directory.
+
+## Usage
+
+Run the project:
+
+```console
+$ make up
+```

@@ -114,6 +114,13 @@ def init_bot(connection: Connection) -> Client:
         """Log when bot is ready."""
         programLogger.notice(f"Bot '{client.user}' connected.")
 
+        for guild in client.guilds:
+            create_server(connection, Server.from_guild(guild))
+
+        for user in client.users:
+            if user != client.user:
+                create_user(connection, User.from_user(user))
+
     @client.event
     async def on_message(discord_message: DiscordMessage) -> None:
         """Handle new message event.

@@ -3,6 +3,7 @@ from dataclasses import dataclass
 
 from discord import Guild
 from discord import Message as DiscordMessage
+from discord import User as DiscordUser
 
 
 @dataclass
@@ -96,6 +97,8 @@ class User:
 
     Class methods
     -------------
+    from_user(discord_user)
+        Create instance from discord.User.
     from_message(discord_message)
         Create instance from discord.Message.
 
@@ -104,6 +107,15 @@ class User:
     discord_id: str
     username: str
     discriminator: str = ""
+
+    @classmethod
+    def from_user(cls, discord_user: DiscordUser):  # type: ignore
+        """Create instance from discord.User."""
+        return cls(
+            discord_id=str(discord_user.id),
+            username=discord_user.name,
+            discriminator=discord_user.discriminator,
+        )
 
     @classmethod
     def from_message(cls, discord_message: DiscordMessage):  # type: ignore

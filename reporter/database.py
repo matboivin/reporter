@@ -75,13 +75,9 @@ def create_tables(connection: Connection) -> None:
     programLogger.debug("Creating tables ...")
 
     cursor.execute(sql_create_servers_table)
-    programLogger.debug("Created servers table.")
     cursor.execute(sql_create_channels_table)
-    programLogger.debug("Created channels table.")
     cursor.execute(sql_create_users_table)
-    programLogger.debug("Created users table.")
     cursor.execute(sql_create_messages_table)
-    programLogger.debug("Created messages table.")
 
 
 def fetch_by_discord_id(
@@ -185,9 +181,8 @@ def create_server(connection: Connection, server: Server) -> int | None:
         cursor.execute(query, astuple(server))
         connection.commit()
         server_id = cursor.lastrowid
-        programLogger.debug(
-            f"Created server ID: {server_id}, data: {pretty_repr(server)}"
-        )
+        programLogger.notice(f"Created server ID: {server_id}")
+        programLogger.debug(pretty_repr(server))
 
     except IntegrityError as err:
         programLogger.warning(f"Failed creating server: {err}")
@@ -226,9 +221,8 @@ def create_channel(connection: Connection, channel: Channel) -> int | None:
         cursor.execute(query, astuple(channel))
         connection.commit()
         channel_id = cursor.lastrowid
-        programLogger.debug(
-            f"Created channel ID: {channel_id}, data: {pretty_repr(channel)}"
-        )
+        programLogger.notice(f"Created channel ID: {channel_id}")
+        programLogger.debug(pretty_repr(channel))
 
     except SqliteError as err:
         programLogger.error(f"Failed creating channel: {err}")
@@ -262,9 +256,8 @@ def create_user(connection: Connection, user: User) -> int | None:
         cursor.execute(query, astuple(user))
         connection.commit()
         user_id = cursor.lastrowid
-        programLogger.debug(
-            f"Created user ID: {user_id}, data: {pretty_repr(user)}"
-        )
+        programLogger.notice(f"Created user ID: {user_id}")
+        programLogger.debug(pretty_repr(user))
 
     except IntegrityError as err:
         programLogger.warning(f"Failed creating user: {err}")
@@ -304,9 +297,8 @@ def create_message(connection: Connection, message: Message) -> int | None:
         cursor.execute(query, astuple(message))
         connection.commit()
         message_id = cursor.lastrowid
-        programLogger.debug(
-            f"Created message ID: {message_id}, data: {pretty_repr(message)}"
-        )
+        programLogger.notice(f"Created message ID: {message_id}")
+        programLogger.debug(pretty_repr(message))
 
     except IntegrityError as err:
         programLogger.warning(f"Failed creating message: {err}")
