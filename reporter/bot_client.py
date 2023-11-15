@@ -1,4 +1,5 @@
 """Discord bot client."""
+from datetime import datetime
 from sqlite3 import Connection
 
 from discord import Client, DMChannel, GroupChannel, Intents
@@ -59,12 +60,17 @@ async def process_message(
         Whether the message was edited.
 
     """
+    publication_date: datetime | None = (
+        discord_message.edited_at if is_edited else discord_message.created_at
+    )
+
+    if not publication_date:
+        publication_date = datetime.now()
+
     try:
         message: Message = Message(
             discord_id=str(discord_message.id),
-            created_at=discord_message.edited_at.isoformat()
-            if is_edited
-            else discord_message.created_at.isoformat(),
+            created_at=publication_date.isoformat(),
             content=discord_message.content,
             author_id=create_user(
                 connection, User.from_message(discord_message)

@@ -42,7 +42,9 @@ class Server:
         return cls(
             discord_id=str(discord_guild.id),
             name=discord_guild.name,
-            created_at=discord_guild.created_at.isoformat(),
+            created_at=discord_guild.created_at.isoformat()
+            if discord_guild.created_at
+            else None,
             member_count=discord_guild.member_count,
             owner_id=str(discord_guild.owner_id),
         )

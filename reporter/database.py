@@ -184,8 +184,8 @@ def create_server(connection: Connection, server: Server) -> int | None:
         programLogger.notice(f"Created server ID: {server_id}")
         programLogger.debug(pretty_repr(server))
 
-    except IntegrityError as err:
-        programLogger.warning(f"Failed creating server: {err}")
+    except IntegrityError:
+        # programLogger.warning(f"Failed creating server: {err}")
         return fetch_by_discord_id(connection, "servers", server.discord_id)
 
     except SqliteError as err:
@@ -259,8 +259,8 @@ def create_user(connection: Connection, user: User) -> int | None:
         programLogger.notice(f"Created user ID: {user_id}")
         programLogger.debug(pretty_repr(user))
 
-    except IntegrityError as err:
-        programLogger.warning(f"Failed creating user: {err}")
+    except IntegrityError:
+        # programLogger.warning(f"Failed creating user: {err}")
         return fetch_by_discord_id(connection, "users", user.discord_id)
 
     except SqliteError as err:
