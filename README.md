@@ -1,6 +1,6 @@
 # Reporter
 
-Store every message of servers joined by a bot.
+Store every message of Discord servers joined by a bot in a SQLite database.
 
 ## Prerequisites
 
@@ -18,13 +18,13 @@ Store every message of servers joined by a bot.
 ```sh
 COMPOSE_PROJECT_NAME=reporter
 COMPOSE_FILE=docker-compose.yml
-BOT_TOKEN=  # Token of the Discord bot
+BOT_TOKEN=  # Discord bot token
 ```
 
 3. Build the project:
 
   ```console
-  $ make up-build
+  $ make up-build  # docker compose up --build --detach
   ```
 
 4. Database will be mounted in `logs` directory.
@@ -34,5 +34,20 @@ BOT_TOKEN=  # Token of the Discord bot
 Run the project:
 
 ```console
-$ make up
+$ make up  # docker compose up --detach
 ```
+
+## Database
+
+See the [database diagram](docs/discord_db.png).
+
+To change the database filename, edit the command in `docker-compose.yml`. Example:
+
+```yaml
+services:
+  bot:
+    ...
+    command: ["reporter", "--database-name", "myfile.db"]
+```
+
+The file will be available at `logs/myfile.db`.
