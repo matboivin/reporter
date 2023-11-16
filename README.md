@@ -29,15 +29,17 @@ BOT_TOKEN=  # Discord bot token
 
 ## Usage
 
+Available options:
+
 ```console
-reporter [-h] [-d] [-p DATABASE_NAME]
+reporter [-h] [-d] [-f filename.db]
 
 Discord bot to listen to server's messages.
 
 options:
   -h, --help            show this help message and exit
   -d, --debug           display debug logs
-  -p DATABASE_NAME, --database-name DATABASE_NAME
+  -f filename.db, --database-file filename.db
                         SQLite database filename (default: 'discord.db')
 ```
 
@@ -67,7 +69,7 @@ Example:
 services:
   bot:
     ...
-    command: ["reporter", "--database-name", "myfile.db"]
+    command: ["reporter", "--database-file", "myfile.db"]
 ```
 
 The file will be available at `logs/myfile.db`.
