@@ -128,7 +128,8 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# Database file
+# Development files
 *.db
 *.drawio
 *.bkp
+logs/

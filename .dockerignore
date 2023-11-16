@@ -1,0 +1,66 @@
+# Editors
+.idea/
+.vscode
+
+# Temporary files
+**/.DS_Store
+*~
+*.swp
+*.swo
+*.bak
+
+# Byte-compiled / optimized / DLL files
+**/__pycache__/
+
+# Distribution / packaging
+**/build
+**/develop-eggs
+**/dist
+**/downloads
+**/eggs
+**/.eggs
+**/lib
+**/lib64
+**/parts
+**/sdist
+**/var
+**/wheels
+**/share/python-wheels
+**/*.egg-info
+**/.installed.cfg
+**/*.egg
+**/MANIFEST
+
+# Unit test / coverage reports
+**/.coveragerc
+
+# Environments
+**/.venv
+**/*.env
+**/env/
+**/venv/
+**/ENV/
+**/env.bak/
+**/venv.bak/
+
+# Documentation
+**/*.svg
+**/docs/
+**/wiki/
+**/examples
+**/readthedocs
+doc/
+LICENSE
+
+# mypy
+**/.mypy_cache/
+**/.dmypy.json
+**/dmypy.json
+
+# Development files
+**/.git*
+**/docker-compose*
+**/Dockerfile
+**/logs
+**/Makefile
+.pre-commit-config.yaml
